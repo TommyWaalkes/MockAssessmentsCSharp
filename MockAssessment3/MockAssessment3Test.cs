@@ -55,18 +55,35 @@ namespace MockAssessment3
         {
             Town t = new Town();
             List<Villager> vills = t.Villagers;
-
+            
             int actual = vills[0].Farm();
             int expected = 2;
             //This is a farmer
             Assert.Equal(expected, actual);
+            Farmer farmer = new Farmer();
+            Slacker slacker = new Slacker();
+            int farmTotal =0, slackTotal =0;
 
-            for(int i = 1; i<vills.Count; i++)
+
+            for (int i = 0; i<vills.Count; i++)
             {
                 //These are slackers
                 Villager v = vills[i];
-                Assert.Equal(0, v.Farm());
+                if (v.GetType() == farmer.GetType())
+                {
+                    farmTotal++;
+                }
+                else
+                {
+                    slackTotal++;
+                }
             }
+
+            int expectedFarmers = 1;
+            int expectedSlackers = 3;
+
+            Assert.Equal(expectedFarmers, farmTotal);
+            Assert.Equal(expectedSlackers, slackTotal);
         }
 
         [Fact]
